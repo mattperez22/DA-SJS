@@ -1,0 +1,253 @@
+---
+title: "exploring"
+author: "Matthew Perez"
+date: "10/30/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load the necessary libraries
+```{r}
+library(tidyverse)
+```
+
+
+
+Take a look inside your dataset
+```{r}
+listings
+```
+
+### Variation
+
+Perform an analysis of the variation in the "neighbourhood" column. 
+
+```{r}
+ggplot(data = listings) +
+  geom_bar(mapping = aes(x = neighbourhood))+
+  coord_flip()
+```
+```{r}
+listings %>%
+  count(neighbourhood)%>%
+  arrange(desc(n))
+  
+```
+
+* Which values are the most common? Why?
+West Town has the most values with 725 listings. This neighborhood is in wicker park which is a very popular neighborhood with global dining, live music bars, and ukraninan cultural events. This neighborhood is also very close to the busy and famous Chicago Downtown. 
+
+* Which values are rare? Why? Does that match your expectations?
+Eastside has the least listings. This totally makes sense because of how far south it is from downtown chicago. It is further from the city so it makes sense that there wouldnt be a lot of listings, matching my expectations. 
+
+* Can you see any unusual patterns? What might explain them?
+There are no unusal patterns in this visualization
+
+
+Perform an analysis of the variation in the "room_type" column. 
+
+```{r}
+ggplot(data = listings) +
+  geom_bar(mapping = aes(x = room_type))
+```
+
+* Which values are the most common? Why?
+Entire homes and apartments are the most common because there is a more supply and more demand for these types of housing. More people are likely to stay in a home/apartment than in a hotel room for instance. 
+
+
+* Which values are rare? Why? Does that match your expectations?
+Hotel rooms and shared rooms are both very low values. This makes a lot of sense because it is uncommon that people would live in a hotel, rather than just stay a few days. People generally prefer to not live with strangers which would make shared rooms also uncommon. This matches my expectations. 
+
+* Can you see any unusual patterns? What might explain them?
+I do not notice any unusual patterns. People tend to steer away from hotels and shared rooms because they prefer privacy. 
+
+
+
+Perform an analysis of the variation in the "price" column. Make sure to explore different "binwidth" values in your analysis
+```{r}
+ggplot(data = listings) +
+  geom_histogram(mapping = aes(x = price), binwidth = 400)
+ggplot(data = listings) +
+  geom_histogram(mapping = aes(x = price), binwidth = 100)
+ggplot(data = listings) +
+  geom_histogram(mapping = aes(x = price), binwidth = 600)
+ggplot(data = listings) +
+  geom_histogram(mapping = aes(x = price), binwidth = 1000)
+ggplot(data = listings) +
+  geom_histogram(mapping = aes(x = price), binwidth = 50)+coord_cartesian(xlim=c(0,1500))
+```
+```{r}
+listings %>%
+  count(price)%>%
+  arrange(desc(n))
+```
+
+
+* Which values are the most common? Why?
+50 dollar listings per night are the most common. This makes sense because if people just want somewhere to stay for the night, they dont want to pay a huge ton of money. This is convenient for most buyers
+
+* Which values are rare? Why? Does that match your expectations?
+A $10000 listing is the most rare which makes sense because not a lot people want to spend 10000 dollars for one night at an airbnb. This matches my expectations. 
+
+* Can you see any unusual patterns? What might explain them?
+I would think as the prices get higher, there would be less listings, but there does not seem to be any pattern in this data. 
+
+
+Perform an analysis of the variation in the "minimum_nights" column. Make sure to explore different "binwidth" values in your analysis.
+
+```{r}
+ggplot(data = listings) +
+  geom_histogram(mapping = aes(x = minimum_nights), binwidth = 5)+coord_cartesian(xlim=c(0,175))
+```
+```{r}
+listings %>%
+  count(minimum_nights)%>%
+  arrange(desc(n))
+```
+
+
+* Which values are the most common? Why?
+The most common number of nights is 2 nights. This makes sense because most people when they travel, it would be for the weekend which is 3 days/2 nights. Since this a time when most can travel, it makes sense for this to be the most common amount of nights. 
+
+* Which values are rare? Why? Does that match your expectations?
+Many minimum nights only have one occurence, but the most rare would be 500 nights. Thats a very long time, over a year, and I would not have expected that to be a value
+
+* Can you see any unusual patterns? What might explain them?
+No unusual patters; it looks like as the minimum nights get higher, the occurences of them happening get smaller. 
+
+
+Perform an analysis of the variation in the "number_of_reviews" column. Make sure to explore different "binwidth" values in your analysis.
+
+```{r}
+ggplot(data = listings) +
+  geom_histogram(mapping = aes(x = number_of_reviews), binwidth = 20)+coord_cartesian(xlim=c(0, 200))
+```
+```{r}
+listings %>%
+  count(number_of_reviews)%>%
+  arrange(desc(n))
+```
+
+* Which values are the most common? Why?
+The most common value is 0 reviews. This is odd to me. An option is that a lot of these places to stay are new, and people havent made reviews for them. Another possibility is that people book the airbnbs without even bothering to look at reviews. 
+
+* Which values are rare? Why? Does that match your expectations?
+The most rare is 632 reviews. This matches my expectations because not a lot of people want to take the time to write reviews for the airbnbs which would make it unlikely for a listing to have that many reviews. 
+
+* Can you see any unusual patterns? What might explain them?
+The pattern here is very clear; as the number of reviews increased, the number of listings decreased. This could be explained by an increasing amount of new listings that havent been listed long enough to gather large amounts of reviews. This could also be explained by the fact that not a lot of people want to take the time to do reviews for the listings. 
+
+
+Perform an analysis of the variation in the "availability_365" column. Make sure to explore different "binwidth" values in your analysis.
+
+```{r}
+ggplot(data = listings) +
+  geom_histogram(mapping = aes(x = availability_365), binwidth = 20)+coord_cartesian(xlim=c(0, 380))
+```
+```{r}
+listings %>%
+  count(availability_365)%>%
+  arrange(desc(n))
+```
+
+
+* Which values are the most common? Why?
+The most common value is 0 days, meaning most are available 0 days out of the year. This is because chicago is the 3rd largest city in the US and is in the top 10 of most tourists in the US. This means that more people would be going to chicago for vacations, work, etc and get airbnbs.
+
+* Which values are rare? Why? Does that match your expectations?
+The most rare is available 287 days of the year. This make sense because there wouldnt be a lot of listings that are availale the majority of the year because of how popular a city chicago is. This matches my expectations. 
+
+* Can you see any unusual patterns? What might explain them?
+There do not seem to be any patterns based on the histogram. The values vary often as seen in the graph.  
+
+
+PART 2:
+
+
+1. What seems to be the most common name of a person in the city you selected
+```{r}
+listings %>%
+  count(host_name)%>%
+  arrange(desc(n))
+```
+The most common name is Rob with 79 times. 
+
+
+2. Do the number of the reviews affect the price of the airbnb? How? Why do you think this happens?
+```{r}
+ggplot(data = listings) + geom_point(mapping = aes(x =number_of_reviews , y =price))+geom_smooth(mapping =aes(x =number_of_reviews , y =price))
+```
+Based on this geom smooth, the price remains pretty much consistent regardless of the number of reviews. This is probably because even if there is good or bad reviews, airbnb and real estate pricing is based around the location, not the reviews. 
+
+```{r}
+smaller <- listings %>%
+  filter(price < 500) 
+ggplot(smaller) + geom_point(mapping = aes(x =number_of_reviews , y =price))+geom_smooth(mapping =aes(x =number_of_reviews , y =price))
+```
+This is a negative correlation, as the number of reviews are increasing, the price decreases slightly. This could be because the airbnb doesnt need help bringing in people since there are already a lot of people talking about the place. If they dont have to spend on advertising, then they can lower the prices.
+
+3. What  type of room tends to have the highest airbnb price?
+
+```{r}
+ggplot(data = smaller, mapping = aes(x= room_type, y = price))+
+  geom_boxplot(mapping = aes(x=reorder(room_type,price,FUN=median), y = price))
+```
+Hotels tend to have the highest airbnb prices in chicago. 
+
+
+4. What neighborhoods tend to have the highest airbnb prices?
+
+```{r}
+ggplot(data = smaller, mapping = aes(x= neighbourhood, y = price))+
+  geom_boxplot(mapping = aes(x=reorder(neighbourhood,price,FUN=median), y = price))+
+coord_flip()
+```
+The neighborhood that is near north side tends to hve the highest airbnb price.
+
+
+
+5. Suppose you could purchase a property in the city and that you could rent it to others as an airbnb. In what neighborhood would you want to purchase your property and why?
+
+```{r}
+ggplot(data = listings, mapping = aes(x= neighbourhood, y = availability_365))+
+  geom_boxplot(mapping = aes(x=reorder(neighbourhood,availability_365,FUN=median), y = availability_365))+
+coord_flip()
+```
+```{r}
+listings %>%
+  count(neighbourhood)%>%
+  arrange(desc(n))
+  
+```
+```{r}
+ggplot(data = smaller, mapping = aes(x= neighbourhood, y = price))+
+  geom_boxplot(mapping = aes(x=reorder(neighbourhood,price,FUN=median), y = price))+
+coord_flip()
+```
+The neighborhood i would pick is near north side. For one, it is right in downtown, has skyscrapers, navy pier, and is along the magnificent mile. This would lead to very popular demand for this. It has a high availability so more people would be able to stay more often. It also has the highest price so I could make the most money. People would be willing to spend this money because of its location and closeness to downtown. It also has the 2nd highest amount of total listings. All of these components lead to my choosing of near northside as the location of the airbnb i would purchase. 
+
+
+
+PART 3:
+
+```{r}
+by_neighborhood<- group_by(listings, neighbourhood) %>%
+  summarize(
+       count = n(), 
+                    avg_price= mean(price, na.rm = TRUE), 
+                    avg_availability= mean(availability_365, na.rm = TRUE)
+                    )
+
+by_neighborhood
+```
+
+1. The average price per night in near north side is $197.03. 
+2. The average number of available nights is 192.5 nights per year in the near north side neighborhood. 
+
+
+3. Total made from airbnb per year: 197.03 * 192.5 = $37,928.3 made per year.
+Property cost= $265,000
+$265,000/$37,928.3 = 6.9 years to break even

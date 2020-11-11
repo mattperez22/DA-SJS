@@ -1,0 +1,81 @@
+---
+title: "Heart Disease Data Analytics Project"
+author: "Matthew Perez"
+date: "9/10/2020"
+output: html_document
+---
+
+```{r}
+Heart_Disease_Prediction.2
+```
+
+```{r}
+library(tidyverse)
+```
+
+
+
+```{r}
+ggplot(data = Heart_Disease_Prediction.2)+ geom_point(mapping = aes(x = Chest.pain.type, y = ST.depression, color = Heart.Disease), position = "jitter") + facet_grid(. ~ Heart.Disease) + labs(y = "Depression (1-6)", x = "Chest Pain (1-5)", title = "Heart Disease Presence or Absence", subtitle = "Based on Chest Pain and Depression levels", caption = "Source: Kaggle.")
+```
+##Insight for Graph:
+#This graph really stuck out to me because of where the clusters of data points are located.I decided to make my x axis the chest pain levels of the participants and the y axis the depression levels as reported by the participants and separated the data points based on the presence or absence of a heart disease.  It can be seen that in the absence of heart disease grid, the clusters are on the bottom half of the graph and spread apart pretty evenly among the chest pain levels. However, when you look at the presence of heart disease grid, a trend is clear: The cluster of point exists at high levels of chest pain and with higher levels of depression. There was an upwards trend in this graph as both the depression/chest pain levels increased which is really interesting to see. This data is very important and prevalent to the world today in predicting a possible heart disease and possibly even saving lives. This data can show how chest pain and depression are important factors in predicting the likelihood of a heart disease.
+
+
+
+```{r}
+ggplot(data = Heart_Disease_Prediction.2, mapping= aes(x = ST.depression, fill = Heart.Disease)) + geom_bar( position = "fill")+ labs(x = "Depression (1-6)", title = "Heart Disease Presence as related to Depression", subtitle = "Data based on Depression levels", caption = "Source: Kaggle.")
+```
+##Insight for Graph:
+#This graph was a really interesting reflection of my data.I decided to make my x axis based on depression levels as reported by the participants because I felt that the graph was able to clearly show a trend as related to the prescence of a Heart Disease. It can be clearly seen that with lower levels of depression, there are more absences of heart diseases. As these depression levels begin to pick up however, the presence of heart diseases increases. This data is very important and prevalent to the world today in predicting a possible heart disease and possibly even saving lives. This data shows the increase in likelihood of having a heart disease as depression levels increase with it. 
+
+
+
+```{r}
+ggplot(data = Heart_Disease_Prediction.2)+ geom_point(mapping = aes(y = Chest.pain.type, x = ST.depression, color = Heart.Disease), position = "jitter") + facet_grid(. ~ Heart.Disease)+ labs(x = "Depression (1-6)", y = "Chest Pain (1-5)", title = "Heart Disease Presence or Absence", subtitle = "Based on Chest Pain and Depression levels", caption = "Source: Kaggle.")
+```
+
+
+```{r}
+ggplot(data = Heart_Disease_Prediction.2, mapping= aes(x = Chest.pain.type, fill = Heart.Disease)) + geom_bar( position = "dodge")+ labs(x = "Chest Pain Level", title = "Heart Disease Presence as related to Chest Pain levels", subtitle = "Data based on Chest levels reported by Participants", caption = "Source: Kaggle.")
+```
+
+
+
+
+```{r}
+ggplot(data = Heart_Disease_Prediction.2)+ geom_point(mapping = aes(x = ST.depression, y = BP, color = Heart.Disease), position= "jitter" ) + facet_grid(. ~ Heart.Disease) + labs(x = "Depression (1-6)", y = "Blood Pressure", title = "Heart Disease Presence or Absence", subtitle = "Data based on Depression and Blood Pressure", caption = "Source: Kaggle.")
+```
+##Insight For graph
+# This graph was also really interesting because an upward trend in the presence of heart disease graph can clearly be seen, showing a relationship between an increase in depression and blood pressure on heart disease presence. 
+
+
+
+```{r}
+ggplot(data = Heart_Disease_Prediction.2)+ geom_point(mapping = aes(x = ST.depression, y = Max.HR, shape= Heart.Disease), position = "jitter") + facet_grid(. ~ Heart.Disease)+labs(x = "Depression (1-5)", y = "Blood Pressure", title = "Heart Disease Presence or Absence", subtitle = "Data based on Depression and Blood Pressure", caption = "Source: Kaggle.")
+```
+
+
+
+
+```{r}
+ggplot(data = Heart_Disease_Prediction.2, mapping = aes(x =Max.HR , y = BP, color=Heart.Disease)) + geom_point()+ geom_smooth()+ labs(x = "Heart Rate", y = "Blood Pressure", title = "Heart Disease Presence or Absence", subtitle = "Data based on Heart Rate and Blood Pressure", caption = "Source: Kaggle.")
+```
+##Insight
+#I really liked this graph because it probably looks the coolest. At first, I didnt think this showed anything because it was just a bunch of dots everywhere. However, once I added differenciated by color and added the geom_smooth, it was a lot easier to understand and you can see how the presence line goes higher with blood pressure, showin that correlation between an increase in blood pressure and likelihood of a heart disease. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
